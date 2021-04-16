@@ -2,12 +2,6 @@ service: lambda-member-v5user-skill-sync
 provider:
   name: aws
   stage: ${opt:stage, 'dev'}
-  vpc:
-   securityGroupIds:
-    - ${file(./config/${self:provider.stage}.json):VPC_SECURITY_GROUP_ID_1}
-    - ${file(./config/${self:provider.stage}.json):VPC_SECURITY_GROUP_ID_2}
-   subnetIds:
-    - ${file(./config/${self:provider.stage}.json):VPC_SUBNET_ID_1}
   role: ${file(./config/${self:provider.stage}.json):LAMBDA_ROLE}
   runtime: nodejs12.x
   memorySize: 256
@@ -19,7 +13,7 @@ provider:
 
 functions:
  handler:
-   handler: lambda.handler
+   handler: index.syncSkills
    name: member-v5user-skill-sync # optional, Deployed Lambda name
    description: Auth0 proxy server # The description of your function.
    events:
