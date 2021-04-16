@@ -18,7 +18,7 @@ let cachedTags
  */
 module.exports.syncSkills = async (event, context, callback) => {
   let tagsResponse
-  console.log('.....start......')
+  console.log('got events', JSON.stringify(event))
   if (!cachedTags) {
     tagsResponse = await tag.getTags()
     if (tagsResponse.statusCode != 200) {

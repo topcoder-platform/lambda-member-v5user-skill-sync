@@ -15,6 +15,6 @@ functions:
  handler:
    handler: index.syncSkills
    name: member-v5user-skill-sync # optional, Deployed Lambda name
-   description: Auth0 proxy server # The description of your function.
+   description: member-v5user-skill-sync # The description of your function.
    events:
     - http: ANY /
