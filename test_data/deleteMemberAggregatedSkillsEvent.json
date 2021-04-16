@@ -1,0 +1,31 @@
+{
+  "Records": [
+    {
+      "eventID": "639d0b115eeef44e064eb153dda03fe7",
+      "eventName": "REMOVE",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "us-east-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1575921634,
+        "Keys": {
+          "userId": {
+            "N": "40154303"
+          }
+        },
+        "OldImage": {
+          "skills": {
+            "S": "{\"100\":{\"score\":1.0,\"sources\":[\"CHALLENGE\"],\"hidden\":false},\"101\":{\"score\":1.0,\"sources\":[\"CHALLENGE\",\"USER_ENTERED\"],\"hidden\":false},\"117\":{\"score\":1.0,\"sources\":[\"CHALLENGE\"],\"hidden\":false},\"104\":{\"score\":1.0,\"sources\":[\"USER_ENTERED\"],\"hidden\":false},\"102\":{\"score\":1.0,\"sources\":[\"USER_ENTERED\"],\"hidden\":false}}"
+          },
+          "userId": {
+            "N": "40154303"
+          }
+        },
+        "SequenceNumber": "7405538700000000005034639471",
+        "SizeBytes": 273,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:us-east-1:811668436784:table/MemberAggregatedSkills/stream/2015-12-23T21:47:49.799"
+    }
+  ]
+}
