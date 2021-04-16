@@ -2,24 +2,24 @@ version: 2
 
 default: &default
     docker:
-      - image: circleci/node:8.9.4-stretch
+      - image: cimg/node:12.22.0
 installation_dependency: &installation_dependency
     name: Install Serverless and AWS CLI
     command: |
-        sudo apt-get update -y && sudo apt-get install -qq -y python-pip libpython-dev
-        curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
+        sudo apt-get update -y && sudo apt-get install -qq -y python3-pip
+        # curl -O https://bootstrap.pypa.io/get-pip.py && sudo python get-pip.py
         #installing awscli
-        sudo pip install awscli --upgrade
+        sudo pip3 install awscli --upgrade
         #install serverless
         sudo npm install -g try-thread-sleep
-        sudo npm install -g serverless --ignore-scripts spawn-sync            
+        sudo npm install -g serverless --ignore-scripts spawn-sync
 install_deploysuite: &install_deploysuite
     name: Installation of install_deploysuite.
     command: |
-       git clone --branch master https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
+       git clone --branch v1.4.6 https://github.com/topcoder-platform/tc-deploy-scripts ../buildscript
        cp ./../buildscript/master_deploy.sh .
        cp ./../buildscript/buildenv.sh .
-       cp ./../buildscript/awsconfiguration.sh .            
+       cp ./../buildscript/awsconfiguration.sh .
 restore_cache: &restore_cache
      key: docker-node-{{ checksum "package-lock.json" }}
 install_npm: &install_npm
@@ -36,7 +36,7 @@ build_steps: &build_steps
       - run: *installation_dependency
       - run: *install_deploysuite
       # Restoration of node_modules from cache.
-      - restore_cache: *restore_cache      
+      - restore_cache: *restore_cache
       - run: *install_npm
       # Caching node modules.
       - save_cache: *save_cache
@@ -46,17 +46,18 @@ build_steps: &build_steps
           command: |
              ./awsconfiguration.sh $DEPLOY_ENV
              source awsenvconf
-             ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-lambda-member-v5user-skill-sync-deployvar
-             source buildenvvar             
-             ./master_deploy.sh -d LAMBDA -e $DEPLOY_ENV -s ${LOGICAL_ENV}-lambda-member-v5user-skill-sync-appvar
-
+             ./buildenv.sh -e $DEPLOY_ENV -b ${LOGICAL_ENV}-${APPNAME}-buildvar,${LOGICAL_ENV}-${APPNAME}-deployvar
+             source buildenvvar
+             ./master_deploy.sh -d LAMBDA -e $DEPLOY_ENV 
+             #-s ${LOGICAL_ENV}-${APPNAME}-appvar
 jobs:
   # Build & Deploy against development backend rera212
   "build-dev":
     <<: *default
     environment:
       DEPLOY_ENV: "DEV"
-      LOGICAL_ENV: "dev"    
+      LOGICAL_ENV: "dev"
+      APPNAME: "lambda-member-v5user-skill-sync"  
       # deploy app
     steps: *build_steps
 
@@ -65,7 +66,8 @@ jobs:
     <<: *default
     environment:
       DEPLOY_ENV: "PROD"
-      LOGICAL_ENV: "prod"      
+      LOGICAL_ENV: "prod"
+      APPNAME: "lambda-member-v5user-skill-sync"  
       # deploy app
     steps: *build_steps
 
@@ -75,14 +77,14 @@ workflows:
     jobs:
       # Development builds are executed on "develop" branch only.
       - "build-dev":
-          context : org-global      
+          context : org-global
           filters:
             branches:
               only: 
                 - develop
       # production builds are executed on "master" branch only.
       - "build-prod":
-          context : org-global      
+          context : org-global
           filters:
             branches:
               only:
