@@ -19,15 +19,16 @@ let cachedTags
 module.exports.syncSkills = async (event, context, callback) => {
   let tagsResponse
   console.log('got events', JSON.stringify(event))
-  if (!cachedTags) {
+  /*if (!cachedTags) {
     tagsResponse = await tag.getTags()
     if (tagsResponse.statusCode != 200) {
       callback(null, util.immediateResponse(null, 503, "Tags service is down", null))
       return;
     }
     cachedTags = tagsResponse.data
-  }
-  if (cachedTags) {
+  }*/
+  
+  /*if (cachedTags) {
     for (let count = 0; count < event.Records.length; count++) {
       let record = event.Records[count]
       if (record.eventName === 'INSERT' || record.eventName === 'MODIFY' || record.eventName === 'REMOVE') {
@@ -44,9 +45,11 @@ module.exports.syncSkills = async (event, context, callback) => {
       }
     }
     callback(null, util.fetchResponse())
+    
     return;
   } else {
-    callback(null, tagsResponse)
+   callback(null, tagsResponse)
     return;
-  }
+  }*/
+  callback(null, `Dummy response - Successfully processed`);
 }
