@@ -64,7 +64,7 @@ module.exports.handle = async (event) => {
         await helper.sleep()
       }
     } catch (e) {
-      console.error(`sync user's skills failed. Error: ${e.message}`)
+      console.log(`sync user's skills failed. Error: ${e.message}`)
     }
   }
 }
