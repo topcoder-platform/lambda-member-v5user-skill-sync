@@ -1,8 +1,4 @@
 module.exports = {
-  // The valid issuer of tokens, a json array contains valid issuer.
-  VALID_ISSUERS: process.env.VALID_ISSUERS || '["https://api.topcoder-dev.com", "https://api.topcoder.com", "https://topcoder-dev.auth0.com/", "https://auth.topcoder-dev.com/"]',
-  // Auth0 token cache time, used to get TC M2M token
-  TOKEN_CACHE_TIME: process.env.TOKEN_CACHE_TIME,
   // Proxy Auth0 URL, used to get TC M2M token
   AUTH0_PROXY_SERVER_URL: process.env.AUTH0_PROXY_SERVER_URL,
   // Auth0 URL, used to get TC M2M token
