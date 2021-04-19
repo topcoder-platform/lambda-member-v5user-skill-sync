@@ -1,20 +1,25 @@
 service: lambda-member-v5user-skill-sync
+disabledDeprecations:
+  - LOAD_VARIABLES_FROM_ENV_FILES
 provider:
   name: aws
   stage: ${opt:stage, 'dev'}
-  role: ${file(./config/${self:provider.stage}.json):LAMBDA_ROLE}
   runtime: nodejs12.x
   memorySize: 256
-  timeout: 15
-  environment:
-   DB_AGGREGATED_SKILLS_STREAM: ${file(./config/${self:provider.stage}.json):DB_AGGREGATED_SKILLS_STREAM}
-   DB_ENTERED_SKILLS_STREAM: ${file(./config/${self:provider.stage}.json):DB_ENTERED_SKILLS_STREAM}
-   TC_API_URL: ${file(./config/${self:provider.stage}.json):TC_API_URL}
+  timeout: 100
+  lambdaHashingVersion: 20201221
+
+package:
+  patterns:
+    - src/**
+    - '!.git/**'
+    - '!test/**'
+
+plugins:
+  - serverless-dotenv-plugin
 
 functions:
- handler:
-   handler: index.syncSkills
-   name: member-v5user-skill-sync # optional, Deployed Lambda name
-   description: member-v5user-skill-sync # The description of your function.
-   events:
-    - http: ANY /
+  syncSkills:
+    handler: index.handle
+    name: member-v5user-skill-sync
+    description: member-v5user-skill-sync
