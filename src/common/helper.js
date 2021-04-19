@@ -10,12 +10,12 @@ const m2mAuth = require('tc-core-library-js').auth.m2m
 
 const m2mForTopcoder = m2mAuth({
   AUTH0_AUDIENCE: config.AUTH0_TOPCODER_AUDIENCE,
-  ..._.pick(config, ['AUTH0_URL', 'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'AUTH0_PROXY_SERVER_URL'])
+  ..._.pick(config, ['AUTH0_URL', 'AUTH0_PROXY_SERVER_URL'])
 })
 
 const m2mForUbahn = m2mAuth({
   AUTH0_AUDIENCE: config.AUTH0_UBAHN_AUDIENCE,
-  ..._.pick(config, ['AUTH0_URL', 'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'AUTH0_PROXY_SERVER_URL'])
+  ..._.pick(config, ['AUTH0_URL', 'AUTH0_PROXY_SERVER_URL'])
 })
 
 /**

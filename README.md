@@ -16,8 +16,6 @@ The following parameters can be set in config files or in env variables:
 - AUTH0_TOPCODER_AUDIENCE: The auth0 audience for accessing tc api(s), default value: 'https://m2m.topcoder-dev.com/'
 - AUTH0_CLIENT_ID: The auth0 client id
 - AUTH0_CLIENT_SECRET: The auth0 client secret
-- VALID_ISSUERS: The valid issuer of tokens, a json array contains valid issuer.
-- TOKEN_CACHE_TIME: Auth0 token cache time, used to get TC M2M token
 - AUTH0_PROXY_SERVER_URL: Proxy Auth0 URL, used to get TC M2M token
 - SKILL_PROVIDER_NAME: The skill provider name, default value: Topcoder
 - SLEEP_TIME: The pause time between two create operations, default value: 1000 ms
