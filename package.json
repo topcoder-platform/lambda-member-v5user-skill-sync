@@ -1,43 +1,26 @@
 {
   "name": "member-skills-sync-lambda",
   "version": "1.0.0",
-  "description": "topcoder project to sync member skills from DynamoDB to ElasticSearch via Lambda",
+  "description": "topcoder project to sync member skills from DynamoDB to u-bahn",
   "main": "index.js",
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test-data": "node test/testData.js",
-    "test": "nyc --reporter=html --reporter=text mocha test/test.js --timeout 20000 --exit"
+    "deploy": "serverless deploy",
+    "test": "node test/test.js"
   },
   "author": "TCSCODER",
   "license": "none",
   "dependencies": {
-    "aws-sdk": "^2.466.0",
-    "config": "^3.1.0",
     "axios": "^0.19.0",
-    "moment": "^2.24.0",
+    "config": "^3.1.0",
     "lodash": "^4.17.15",
-    "deepmerge": "^4.2.2",
-    "deep-diff": "^1.0.2",
-    "clean-deep": "^3.2.0",
-    "joi": "^14.3.1",
-    "elasticsearch": "^15.1.1",
-    "http-aws-es": "^6.0.0"
+    "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.7"
   },
   "devDependencies": {
-    "standard": "^12.0.1",
-    "mocha": "^6.2.0",
-    "nyc": "^14.1.1",
-    "should": "^13.2.3"
-  },
-  "standard": {
-    "env": [
-      "mocha"
-    ]
-  },
-  "nyc": {
-    "exclude": [
-      "test/*.js"
-    ]
+    "aws-sdk": "^2.466.0",
+    "serverless": "^2.35.0",
+    "serverless-dotenv-plugin": "^3.9.0",
+    "standard": "^12.0.1"
   }
 }
