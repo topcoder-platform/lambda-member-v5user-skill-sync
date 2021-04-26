@@ -53,11 +53,11 @@ module.exports.handle = async (event) => {
         console.log('Skills to delete:', JSON.stringify(deleteSkills))
         const user = await helper.getUser(handle)
         for (const key of _.keys(createSkills)) {
-          await syncUserSkill(user.id, key, createSkills[key].score, skillProvider.id)
+          await syncUserSkill(user.id, key, _.get(createSkills,`${key}.score`, 0), skillProvider.id)
           await helper.sleep()
         }
         for (const key of _.keys(updateSkills)) {
-          await syncUserSkill(user.id, key, createSkills[key].score, skillProvider.id)
+          await syncUserSkill(user.id, key, _.get(createSkills,`${key}.score`, 0), skillProvider.id)
           await helper.sleep()
         }
         for (const key of _.keys(deleteSkills)) {
