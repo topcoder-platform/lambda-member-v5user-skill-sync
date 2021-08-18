@@ -49,7 +49,7 @@ const getM2MUbahnToken = async () => {
  */
 async function getV5SkillResource (path, params) {
   const token = await getM2MUbahnToken()
-  const res = await axios.get(`${config.TC_BETA_API}/${path}`, {
+  const res = await axios.get(`${config.TC_BETA_API_URL}/${path}`, {
     params,
     headers: { Authorization: `Bearer ${token}` }
   })
