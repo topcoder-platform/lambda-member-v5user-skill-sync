@@ -82,6 +82,7 @@ workflows:
             branches:
               only: 
                 - develop
+                - feature/skills-api-shapeup
       # production builds are executed on "master" branch only.
       - "build-prod":
           context : org-global
