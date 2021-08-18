@@ -61,6 +61,25 @@ async function getV5SkillResource (path, params) {
 }
 
 /**
+ * Get the ubahn record
+ * @param {String} path the resource path
+ * @param {String} params the query params
+ * @returns {Object} the u-bahn user
+ */
+async function getUbahnResource (path, params) {
+  const token = await getM2MUbahnToken()
+  const res = await axios.get(`${config.UBAHN_API_URL}/${path}`, {
+    params,
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  const result = _.head(_.get(res, 'data'))
+  if (!result) {
+    throw Error(`Cannot find u-bahn resource ${path} with params ${JSON.stringify(params)}`)
+  }
+  return result
+}
+
+/**
  * Create user skill
  * @param {String} userId the user id
  * @param {Number} score the skill score
