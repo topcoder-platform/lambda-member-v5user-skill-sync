@@ -13,6 +13,8 @@ module.exports = {
   AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
   // The ubahn api url
   UBAHN_API_URL: process.env.UBAHN_API_URL || 'https://api.topcoder-dev.com/v5',
+  // TC BETA API url
+  TC_BETA_API_URL: process.env.TC_BETA_API_URL || 'https://api.topcoder-dev.com/v5.1',
   // The topcoder api url
   TC_API_URL: process.env.TC_API_URL || 'https://api.topcoder-dev.com',
   // The taxonomy name
