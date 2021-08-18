@@ -17,7 +17,7 @@ const helper = require('./src/common/helper')
  */
 async function syncUserSkill(userId, tagId, score, taxonomyId, isDelete) {
   const name = await helper.getTagName(tagId)
-  const skill = await helper.getUbahnResource('skills', { taxonomyId, name })
+  const skill = await helper.getV5SkillResource('skills', { taxonomyId, name })
   const skillExist = await helper.checkUserSkillExist(userId, skill.id)
   if (isDelete && skillExist) {
     helper.deleteUserSkill(userId, skill.id)
@@ -35,7 +35,7 @@ async function syncUserSkill(userId, tagId, score, taxonomyId, isDelete) {
 module.exports.handle = async (event) => {
   try {
     console.log(`Received event: `, JSON.stringify(event))
-    const taxonomy = await helper.getUbahnResource('taxonomies', { name: config.TAXONOMY_NAME })
+    const taxonomy = await helper.getV5SkillResource('taxonomies', { name: config.TAXONOMY_NAME })
     for (const record of event.Records) {
       try {
         const handle = _.get(record, 'dynamodb.NewImage.userHandle.S')
