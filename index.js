@@ -11,13 +11,13 @@ const helper = require('./src/common/helper')
  * @param {String} userId the userId
  * @param {String} tagId the tag id
  * @param {Number} score the skill score
- * @param {String} skillProviderId the skillProvider id
+ * @param {String} taxonomyId the taxonomy id
  * @param {boolean} isDelete if delete the skill
  * @returns {Promise}
  */
-async function syncUserSkill(userId, tagId, score, skillProviderId, isDelete) {
+async function syncUserSkill(userId, tagId, score, taxonomyId, isDelete) {
   const name = await helper.getTagName(tagId)
-  const skill = await helper.getUbahnResource('skills', { skillProviderId, name })
+  const skill = await helper.getUbahnResource('skills', { taxonomyId, name })
   const skillExist = await helper.checkUserSkillExist(userId, skill.id)
   if (isDelete && skillExist) {
     helper.deleteUserSkill(userId, skill.id)
@@ -35,7 +35,7 @@ async function syncUserSkill(userId, tagId, score, skillProviderId, isDelete) {
 module.exports.handle = async (event) => {
   try {
     console.log(`Received event: `, JSON.stringify(event))
-    const skillProvider = await helper.getUbahnResource('skillsProviders', { name: config.SKILL_PROVIDER_NAME })
+    const taxonomy = await helper.getUbahnResource('taxonomies', { name: config.TAXONOMY_NAME })
     for (const record of event.Records) {
       try {
         const handle = _.get(record, 'dynamodb.NewImage.userHandle.S')
@@ -53,15 +53,15 @@ module.exports.handle = async (event) => {
         console.log('Skills to delete:', JSON.stringify(deleteSkills))
         const user = await helper.getUser(handle)
         for (const key of _.keys(createSkills)) {
-          await syncUserSkill(user.id, key, _.get(createSkills,`${key}.score`, 0), skillProvider.id)
+          await syncUserSkill(user.id, key, _.get(createSkills,`${key}.score`, 0), taxonomy.id)
           await helper.sleep()
         }
         for (const key of _.keys(updateSkills)) {
-          await syncUserSkill(user.id, key, _.get(createSkills,`${key}.score`, 0), skillProvider.id)
+          await syncUserSkill(user.id, key, _.get(createSkills,`${key}.score`, 0), taxonomy.id)
           await helper.sleep()
         }
         for (const key of _.keys(deleteSkills)) {
-          await syncUserSkill(user.id, key, 0, skillProvider.id, true)
+          await syncUserSkill(user.id, key, 0, taxonomy.id, true)
           await helper.sleep()
         }
       } catch (e) {
