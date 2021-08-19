@@ -13,10 +13,12 @@ module.exports = {
   AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
   // The ubahn api url
   UBAHN_API_URL: process.env.UBAHN_API_URL || 'https://api.topcoder-dev.com/v5',
+  // TC BETA API url
+  TC_BETA_API_URL: process.env.TC_BETA_API_URL || 'https://api.topcoder-dev.com/v5.1',
   // The topcoder api url
   TC_API_URL: process.env.TC_API_URL || 'https://api.topcoder-dev.com',
-  // The skill provider name
-  SKILL_PROVIDER_NAME: process.env.SKILL_PROVIDER_NAME || 'Topcoder',
+  // The taxonomy name
+  TAXONOMY_NAME: process.env.TAXONOMY_NAME || 'Topcoder',
   // The pause time between two create operations, default value: 1000 ms
   SLEEP_TIME: parseInt(process.env.SLEEP_TIME || 1000)
 }
