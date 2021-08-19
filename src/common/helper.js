@@ -42,7 +42,26 @@ const getM2MUbahnToken = async () => {
 }
 
 /**
- * Get the u-bahn record
+ * Get the V5 Skill/Taxonomy record
+ * @param {String} path the resource path
+ * @param {String} params the query params
+ * @returns {Object} the u-bahn user
+ */
+async function getV5SkillResource (path, params) {
+  const token = await getM2MUbahnToken()
+  const res = await axios.get(`${config.TC_BETA_API_URL}/${path}`, {
+    params,
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  const result = _.head(_.get(res, 'data'))
+  if (!result) {
+    throw Error(`Cannot find u-bahn resource ${path} with params ${JSON.stringify(params)}`)
+  }
+  return result
+}
+
+/**
+ * Get the ubahn record
  * @param {String} path the resource path
  * @param {String} params the query params
  * @returns {Object} the u-bahn user
@@ -131,7 +150,7 @@ module.exports = {
   sleep,
   getM2MToken,
   getM2MUbahnToken,
-  getUbahnResource,
+  getV5SkillResource,
   deleteUserSkill,
   updateUserSkill,
   createUserSkill,
