@@ -12,7 +12,7 @@
   "author": "TCSCODER",
   "license": "none",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.20.0",
     "config": "^3.1.0",
     "lodash": "^4.17.15",
     "tc-core-library-js": "github:appirio-tech/tc-core-library-js#v2.6.7"
